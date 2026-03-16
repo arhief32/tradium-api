@@ -22,4 +22,30 @@ $app->get('/', function (Request $request, Response $response) {
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+$app->get('/api/market', function (Request $request, Response $response) {
+
+    $data = [
+        "symbol" => "BTCUSDT",
+        "price" => 65000
+    ];
+
+    $response->getBody()->write(json_encode($data));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+
+$app->get('/api/trade/list', function (Request $request, Response $response) {
+
+    $data = [
+        [
+            "symbol" => "BTCUSDT",
+            "side" => "BUY",
+            "qty" => 0.01
+        ]
+    ];
+
+    $response->getBody()->write(json_encode($data));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
 $app->run();
