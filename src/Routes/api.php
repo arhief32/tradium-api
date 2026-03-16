@@ -1,41 +1,23 @@
 <?php
 
 use Slim\App;
+
+use App\Controllers\MarketController;
+use App\Controllers\IndicatorController;
 use App\Controllers\TradeController;
-use App\Services\MarketService;
-use App\Helpers\ResponseHelper;
 
 return function (App $app) {
 
-    $app->get('/', function ($request, $response) {
+    $app->get('/api/market/ticker',[MarketController::class,'ticker']);
 
-        return ResponseHelper::json($response, [
-            "status" => "ok",
-            "message" => "Slim API Running"
-        ]);
-    });
+    $app->get('/api/market/klines',[MarketController::class,'klines']);
 
-    $app->get('/api/market', function ($request, $response) {
+    $app->get('/api/indicator/sma',[IndicatorController::class,'sma']);
 
-        $service = new MarketService();
+    $app->get('/api/trade/active',[TradeController::class,'active']);
 
-        return ResponseHelper::json(
-            $response,
-            $service->getMarket()
-        );
-    });
+    $app->get('/api/trade/history',[TradeController::class,'history']);
 
-    $app->get('/api/sma', function ($request, $response) {
+    $app->post('/api/trade',[TradeController::class,'create']);
 
-        $service = new MarketService();
-
-        return ResponseHelper::json(
-            $response,
-            $service->getSMA()
-        );
-    });
-
-    $app->get('/api/trade/list', [TradeController::class, 'list']);
-
-    $app->post('/api/trade', [TradeController::class, 'create']);
 };

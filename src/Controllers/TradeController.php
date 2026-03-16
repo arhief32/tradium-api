@@ -9,23 +9,20 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class TradeController
 {
 
-    public function list(Request $request, Response $response)
+    public function active(Request $request, Response $response)
     {
 
-        $trades = [
-            [
-                "symbol" => "BTCUSDT",
-                "side" => "BUY",
-                "qty" => 0.01
-            ],
-            [
-                "symbol" => "ETHUSDT",
-                "side" => "SELL",
-                "qty" => 0.5
-            ]
-        ];
+        return ResponseHelper::json($response, [
+            "activeTrades" => []
+        ]);
+    }
 
-        return ResponseHelper::json($response, $trades);
+    public function history(Request $request, Response $response)
+    {
+
+        return ResponseHelper::json($response, [
+            "history" => []
+        ]);
     }
 
     public function create(Request $request, Response $response)
@@ -34,7 +31,7 @@ class TradeController
         $body = $request->getParsedBody();
 
         return ResponseHelper::json($response, [
-            "status" => "trade created",
+            "status" => "order created",
             "data" => $body
         ]);
     }
