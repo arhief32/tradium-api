@@ -6,13 +6,9 @@ use Slim\Factory\AppFactory;
 
 $app = AppFactory::create();
 
-/* middleware parsing body json */
 $app->addBodyParsingMiddleware();
 
-/* load helper */
-require __DIR__ . '/../src/helpers.php';
-
 /* load routes */
-(require __DIR__ . '/../src/routes.php')($app);
+(require __DIR__ . '/../src/Routes/api.php')($app);
 
 $app->run();
