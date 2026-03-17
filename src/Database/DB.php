@@ -4,7 +4,7 @@ namespace App\Database;
 
 use PDO;
 
-class DB
+class DBMysql
 {
 
     public static function connect()

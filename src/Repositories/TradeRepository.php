@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Database\DB;
+use App\Database\DBMysql as DB;
 
 class TradeRepository
 {
