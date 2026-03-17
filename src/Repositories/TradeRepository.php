@@ -6,7 +6,6 @@ use App\Database\DB;
 
 class TradeRepository
 {
-
     public function create($data)
     {
 
@@ -42,13 +41,21 @@ class TradeRepository
 
         $stmt->execute([
             "id" => $tradeId,
-            "exit_price" => $data['exit_price'],
-            "pnl" => $data['pnl'],
-            "status" => $data['status'],
-            "exit_fee" => $data['exit_fee'],
-            "exit_time" => $data['exit_time']
+            "exit_price" => $exit_price,
+            "pnl" => $pnl,
+            "status" => $status,
+            "exit_fee" => $exit_fee,
+            "exit_time" => $exit_time
         ]);
 
         return true;
+    }
+
+    public function getActiveTrades()
+    {
+        $db = DB::connect();
+        $sql = "SELECT * FROM trades WHERE status = 'OPEN' ORDER BY entry_time DESC";
+        $stmt = $db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

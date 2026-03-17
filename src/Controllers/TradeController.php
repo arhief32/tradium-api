@@ -13,9 +13,11 @@ class TradeController
 
     public function active(Request $request, Response $response)
     {
+        $this->tradeService = new TradeService();
+        $activeTrades = $this->tradeService->checkActiveTrades();
 
         return ResponseHelper::json($response, [
-            "activeTrades" => []
+            "activeTrades" => $activeTrades
         ]);
     }
 
