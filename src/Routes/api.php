@@ -9,6 +9,13 @@ use App\Controllers\SimulationController;
 
 return function (App $app) {
 
+    // create endpoint for health check
+    $app->get('/api/health', function ($request, $response, $args) {
+        $data = ['status' => 'ok'];
+        $response->getBody()->write(json_encode($data));
+        return $response->withHeader('Content-Type', 'application/json');
+    });
+    
     $app->get('/api/market/ticker',[MarketController::class,'ticker']);
 
     $app->get('/api/market/klines',[MarketController::class,'klines']);
