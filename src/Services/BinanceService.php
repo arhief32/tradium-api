@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
+use function DI\env;
+
 class BinanceService
 {
 
-    private $base = "https://fapi.binance.com";
-
     private function request($endpoint)
     {
-        $url = $this->base . $endpoint;
+        $url = $_ENV['BINANCE_BASE_URL'] . $endpoint;
 
         $ch = curl_init();
 

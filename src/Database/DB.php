@@ -4,16 +4,16 @@ namespace App\Database;
 
 use PDO;
 
-class DBMysql
+class DB
 {
 
     public static function connect()
     {
 
-        $host = "localhost";
-        $db = "tradium";
-        $user = "root";
-        $pass = "Ninja123!";
+        $host = $_ENV['DB_HOST'] ?? 'localhost';
+        $db = $_ENV['DB_NAME'] ?? 'db_name';
+        $user = $_ENV['DB_USER'] ?? 'root';
+        $pass = $_ENV['DB_PASS'] ?? 'pasword';
 
         return new PDO(
             "mysql:host=$host;dbname=$db;charset=utf8",

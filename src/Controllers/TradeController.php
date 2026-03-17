@@ -11,11 +11,6 @@ class TradeController
 {
     private $tradeService;
 
-    public function __construct(TradeService $tradeService)
-    {
-        $this->tradeService = $tradeService;
-    }
-
     public function active(Request $request, Response $response)
     {
 
@@ -48,7 +43,8 @@ class TradeController
             ], 400);
         }
 
-        $tradeData = $this->tradeService->create($symbol, $side, $amount);
+        $tradeService = new TradeService();
+        $tradeData = $tradeService->create($symbol, $side, $amount);
 
         return ResponseHelper::json($response, [
             "message" => "Trade created",

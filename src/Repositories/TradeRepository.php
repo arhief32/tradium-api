@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Database\DBMysql as DB;
+use App\Database\DB;
 
 class TradeRepository
 {
@@ -31,20 +31,18 @@ class TradeRepository
     {
         $exit_price = $data['exit_price'] ?? null;
         $exit_time = $data['exit_time'] ?? null;
-        $current_price = $data['current_price'] ?? null;
         $pnl = $data['pnl'] ?? null;
         $exit_fee = $data['exit_fee'] ?? null;
         $status = $data['status'] ?? null;
 
         $db = DB::connect();
-        $sql = "UPDATE trades SET exit_time = :exit_time, exit_price = :exit_price, current_price = :current_price, pnl = :pnl, status = :status, exit_fee = :exit_fee WHERE id = :id";
+        $sql = "UPDATE trades SET exit_time = :exit_time, exit_price = :exit_price, pnl = :pnl, status = :status, exit_fee = :exit_fee WHERE id = :id";
 
         $stmt = $db->prepare($sql);
 
         $stmt->execute([
             "id" => $tradeId,
             "exit_price" => $data['exit_price'],
-            "current_price" => $data['current_price'],
             "pnl" => $data['pnl'],
             "status" => $data['status'],
             "exit_fee" => $data['exit_fee'],

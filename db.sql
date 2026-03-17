@@ -7,7 +7,6 @@ CREATE TABLE trades (
     exit_time TIMESTAMP,
     entry_price DECIMAL(20, 8) NOT NULL,
     exit_price DECIMAL(20, 8),
-    current_price DECIMAL(20, 8),
     pnl DECIMAL(20, 8),
     entry_fee DECIMAL(20, 8),
     exit_fee DECIMAL(20, 8),
