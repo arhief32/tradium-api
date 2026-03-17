@@ -58,4 +58,13 @@ class TradeRepository
         $stmt = $db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function getLastActiveTradeBySymbol($symbol)
+    {
+        $db = DB::connect();
+        $sql = "SELECT * FROM trades WHERE symbol = :symbol AND status = 'OPEN' ORDER BY entry_time DESC LIMIT 1";
+        $stmt = $db->prepare($sql);
+        $stmt->execute(["symbol" => $symbol]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
 }

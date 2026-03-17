@@ -36,4 +36,14 @@ class BinanceService
             "/fapi/v1/klines?symbol={$symbol}&interval={$interval}&limit={$limit}"
         );
     }
+
+    public function pricePrecision($symbol = "BTCUSDT")
+    {
+        $exchangeInfo = $this->request("/fapi/v1/exchangeInfo?symbol=" . $symbol);
+        $priceFilter = array_filter($exchangeInfo['symbols'][0]['filters'], function ($f) {
+            return $f['filterType'] === 'PRICE_FILTER';
+        });
+        $priceFilter = array_values($priceFilter)[0];
+        return strlen(substr(strrchr($priceFilter['tickSize'], "."), 1));
+    }
 }

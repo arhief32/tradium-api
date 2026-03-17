@@ -72,4 +72,16 @@ class TradeService
 
         return $activeTrades;
     }
+
+    function checkLastActiveTradeBySymbol($symbol)
+    {
+        $repo = new TradeRepository();
+        return $repo->getLastActiveTradeBySymbol($symbol);
+    }
+
+    function update($tradeId, $data)
+    {
+        $repo = new TradeRepository();
+        return $repo->update($tradeId, $data);
+    }
 }
