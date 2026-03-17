@@ -5,6 +5,7 @@ use Slim\App;
 use App\Controllers\MarketController;
 use App\Controllers\IndicatorController;
 use App\Controllers\TradeController;
+use App\Controllers\SimulationController;
 
 return function (App $app) {
 
@@ -19,5 +20,7 @@ return function (App $app) {
     $app->get('/api/trade/history',[TradeController::class,'history']);
 
     $app->post('/api/trade',[TradeController::class,'create']);
+
+    $app->get('/api/simulation/tradivarian',[SimulationController::class,'tradivarian']);
 
 };
