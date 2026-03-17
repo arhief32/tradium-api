@@ -5,9 +5,16 @@ namespace App\Controllers;
 use App\Helpers\ResponseHelper;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Services\TradeService;
 
 class TradeController
 {
+    private $tradeService;
+
+    public function __construct(TradeService $tradeService)
+    {
+        $this->tradeService = $tradeService;
+    }
 
     public function active(Request $request, Response $response)
     {
@@ -30,9 +37,22 @@ class TradeController
 
         $body = $request->getParsedBody();
 
+        $symbol = $body['symbol'] ?? null;
+        $side = $body['side'] ?? null;
+        $amount = $body['amount'] ?? null;
+
+        if (!$symbol || !$side || !$amount) {
+
+            return ResponseHelper::json($response, [
+                "error" => "symbol, side, and amount required"
+            ], 400);
+        }
+
+        $tradeData = $this->tradeService->create($symbol, $side, $amount);
+
         return ResponseHelper::json($response, [
-            "status" => "order created",
-            "data" => $body
+            "message" => "Trade created",
+            "data" => $tradeData
         ]);
     }
 }
