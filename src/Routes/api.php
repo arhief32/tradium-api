@@ -17,15 +17,12 @@ return function (App $app) {
     });
     
     $app->get('/api/market/ticker',[MarketController::class,'ticker']);
-
     $app->get('/api/market/klines',[MarketController::class,'klines']);
 
     $app->get('/api/indicator/sma',[IndicatorController::class,'sma']);
 
     $app->get('/api/trade/active',[TradeController::class,'active']);
-
     $app->get('/api/trade/history',[TradeController::class,'history']);
-
     $app->post('/api/trade',[TradeController::class,'create']);
 
     $app->get('/api/simulation/tradivarian',[SimulationController::class,'tradivarian']);

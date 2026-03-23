@@ -75,6 +75,7 @@ class SimulationService
             $this->trade->update($activeTrade['id'], [
                 'exit_price' => $price,
                 'exit_time' => date('Y-m-d H:i:s'),
+                'exit_fee' => $activeTrade['amount'] * 0.0004, // 0.04% fee (taker)
                 'pnl' => $pnl,
                 'status' => 'CLOSED',
                 ]);

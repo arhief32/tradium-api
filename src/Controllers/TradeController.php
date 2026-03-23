@@ -11,9 +11,14 @@ class TradeController
 {
     private $tradeService;
 
-    public function active(Request $request, Response $response)
+    // create constructor to initialize the service
+    public function __construct()
     {
         $this->tradeService = new TradeService();
+    }
+
+    public function active(Request $request, Response $response)
+    {
         $activeTrades = $this->tradeService->checkActiveTrades();
 
         return ResponseHelper::json($response, [
@@ -23,10 +28,20 @@ class TradeController
 
     public function history(Request $request, Response $response)
     {
+        $params = $request->getQueryParams();
 
-        return ResponseHelper::json($response, [
-            "history" => []
-        ]);
+        $page = isset($params['page']) ? (int)$params['page'] : 1;
+        $limit = isset($params['limit']) ? (int)$params['limit'] : 10;
+
+        $result = $this->tradeService->getHistoryTrades($page, $limit);
+
+        $payload = [
+            'status' => 'success',
+            'data' => $result['data'],
+            'meta' => $result['meta']
+        ];
+
+        return ResponseHelper::json($response, $payload);
     }
 
     public function create(Request $request, Response $response)

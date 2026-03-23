@@ -67,4 +67,29 @@ class TradeRepository
         $stmt->execute(["symbol" => $symbol]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
+
+    public function getAllHistoryTrades($limit, $offset)
+    {
+        $db = DB::connect();
+        $stmt = $db->prepare("
+            SELECT *
+            FROM trades
+            WHERE status = 'CLOSED'
+            ORDER BY created_at DESC
+            LIMIT :limit OFFSET :offset
+        ");
+
+        $stmt->bindValue(':limit', (int)$limit, \PDO::PARAM_INT);
+        $stmt->bindValue(':offset', (int)$offset, \PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function countAllHistoryTrades()
+    {        
+        $db = DB::connect();
+        $stmt = $db->query("SELECT COUNT(*) as total FROM trades WHERE status = 'CLOSED'");
+        return (int)$stmt->fetch(\PDO::FETCH_ASSOC)['total'];
+    }
 }
