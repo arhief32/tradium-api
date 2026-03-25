@@ -17,5 +17,6 @@ $app->addBodyParsingMiddleware();
 
 /* load routes */
 (require __DIR__ . '/../src/Routes/api.php')($app);
+(require __DIR__ . '/../src/Routes/web.php')($app);
 
 $app->run();
