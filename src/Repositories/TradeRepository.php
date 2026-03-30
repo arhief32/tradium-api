@@ -86,6 +86,14 @@ class TradeRepository
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    // create function for get total pnl
+    public function getTotalPNL()
+    {
+        $db = DB::connect();
+        $stmt = $db->query("SELECT SUM(pnl) as total FROM trades");
+        return (float)$stmt->fetch(\PDO::FETCH_ASSOC)['total'];
+    }
+
     public function countAllHistoryTrades()
     {        
         $db = DB::connect();
