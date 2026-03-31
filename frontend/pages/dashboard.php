@@ -29,7 +29,7 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <div class="subheader">PNL Total</div>
-                        <div class="h1 <?= $total_pnl > 0 ? 'text-green' : 'text-red' ?>" id="total_pnl">$<?= $total_pnl ?></div>
+                        <div class="h1 <?= $pnl_total > 0 ? 'text-green' : 'text-red' ?>" id="pnl_total">$<?= $pnl_total ?></div>
                         
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <div class="subheader">PNL Active</div>
-                        <div class="h1 <?= $pnl > 0 ? 'text-green' : 'text-red' ?>" id="pnl">$<?= $pnl ?></div>
+                        <div class="h1 <?= $pnl_active > 0 ? 'text-green' : 'text-red' ?>" id="pnl_active">$<?= $pnl_active ?></div>
                         
                     </div>
                 </div>

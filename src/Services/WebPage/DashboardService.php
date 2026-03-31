@@ -47,16 +47,17 @@ public function dashboard()
         $signal = $this->strategy->smaCrossover($closes);
 
         // get balance
-        // $total_pnl = $this->repo->getTotalPNL();
+        $pnl_total = $this->repo->getTotalPNL();
+        $pnl_active = $this->repo->getLastActiveTrade()->pnl ?? 0;
         // $pnl = $this->repo->getLastActiveTrade()->pnl ?? 0;
-        $pnl = $this->repo->getTotalPNL();
-        $balance = $balance + $pnl;
+        // $pnl = $this->repo->getTotalPNL();
+        $balance = $balance + $pnl_total;
         
 
         $result = [
             'balance' => $balance,
-            // 'total_pnl' => $total_pnl,
-            'pnl' => $pnl,
+            'pnl_total' => $pnl_total,
+            'pnl_active' => $pnl_active,
             'bot_status' => $bot_status,
             'signal' => $signal,
             'sma5' => $sma5,
