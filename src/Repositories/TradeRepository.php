@@ -94,11 +94,14 @@ class TradeRepository
     }
 
     // create function for get total pnl
-    public function getTotalPNL()
+    public function getTotalPnl()
     {
         $db = DB::connect();
-        $stmt = $db->query("SELECT SUM(pnl) as total FROM trades");
-        return (float)$stmt->fetch(\PDO::FETCH_ASSOC)['total'];
+        $stmt = $db->prepare("SELECT SUM(CASE WHEN status = 'CLOSED' THEN pnl ELSE 0 END) AS total_closed,
+                            SUM(CASE WHEN status = 'OPEN' THEN pnl ELSE 0 END) AS total_open
+                        FROM trades");
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function countAllHistoryTrades()
