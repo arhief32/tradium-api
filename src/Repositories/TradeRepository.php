@@ -59,6 +59,13 @@ class TradeRepository
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function getLastActiveTrade()
+    {
+        $db = DB::connect();
+        $stmt = $db->query("SELECT * FROM trades WHERE status = 'OPEN' ORDER BY entry_time DESC LIMIT 1");
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
     public function getLastActiveTradeBySymbol($symbol)
     {
         $db = DB::connect();
@@ -95,7 +102,7 @@ class TradeRepository
     }
 
     public function countAllHistoryTrades()
-    {        
+    {
         $db = DB::connect();
         $stmt = $db->query("SELECT COUNT(*) as total FROM trades WHERE status = 'CLOSED'");
         return (int)$stmt->fetch(\PDO::FETCH_ASSOC)['total'];

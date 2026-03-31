@@ -16,7 +16,7 @@
         <!-- 🔥 SUMMARY -->
         <div class="row row-deck row-cards">
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card text-center">
                     <div class="card-body">
                         <div class="subheader">Balance</div>
@@ -25,16 +25,27 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card text-center">
                     <div class="card-body">
-                        <div class="subheader">PNL</div>
-                        <div class="h1 text-green" id="pnl">$<?= $pnl ?></div>
+                        <div class="subheader">PNL Total</div>
+                        <div class="h1 <?= $total_pnl > 0 ? 'text-green' : 'text-red' ?>" id="total_pnl">$<?= $total_pnl ?></div>
+                        
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="subheader">PNL Active</div>
+                        <div class="h1 <?= $pnl > 0 ? 'text-green' : 'text-red' ?>" id="pnl">$<?= $pnl ?></div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
                 <div class="card text-center">
                     <div class="card-body">
                         <div class="subheader">Bot Status</div>
