@@ -30,7 +30,6 @@
                     <div class="card-body">
                         <div class="subheader">PNL Total</div>
                         <div class="h1 <?= $pnl_total > 0 ? 'text-green' : 'text-red' ?>" id="pnl_total">$<?= $pnl_total ?></div>
-                        
                     </div>
                 </div>
             </div>
@@ -38,9 +37,8 @@
             <div class="col-md-3">
                 <div class="card text-center">
                     <div class="card-body">
-                        <div class="subheader">PNL Active</div>
-                        <div class="h1 <?= $pnl_active > 0 ? 'text-green' : 'text-red' ?>" id="pnl_active">$<?= $pnl_active ?></div>
-                        
+                        <div class="subheader">PNL History</div>
+                        <div class="h1 <?= $pnl_history > 0 ? 'text-green' : 'text-red' ?>" id="pnl_history">$<?= $pnl_history ?></div>
                     </div>
                 </div>
             </div>
@@ -58,16 +56,49 @@
 
         <!-- 🤖 SIGNAL -->
         <div class="row mt-3">
-            <div class="col-12">
+            <div class="col-6">
                 <div class="card text-center">
                     <div class="card-body">
-
                         <div class="subheader">Current Signal</div>
                         <div class="display-3 fw-bold" id="signal"><?= $signal ?></div>
-
                     </div>
                 </div>
             </div>
+
+            <div class="col-6">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h2 class="card-title">Current Position</h2>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong>Symbol:</strong> <span id="symbol"><?= $trade_active['symbol'] ?></span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Entry Time:</strong> <span id="entry-time"><?= $trade_active['entry_time'] ?></span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Entry Price:</strong> <span id="entry-price"><?= $trade_active['entry_price'] ?></span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Quantity:</strong> <span id="quantity"><?= $trade_active['qty'] ?></span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>PnL:</strong> <span id="pnl"><?= $pnl_active ?? '-' ?></span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Status:</strong> <span id="status"><?$trade_active['status']?></span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Stop Loss:</strong> <span id="stop-loss"></span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Take Profit:</strong> <span id="take-profit"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- 📊 CHART -->
