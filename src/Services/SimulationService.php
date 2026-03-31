@@ -101,7 +101,7 @@ class SimulationService
         ];
     }
 
-    private function calculatePNL($trade, $current_price)
+    public function calculatePNL($trade, $current_price)
     {
         $entry_price = (float)$trade['entry_price'];
         $qty = (float)$trade['qty'];

@@ -6,10 +6,11 @@ use App\Repositories\TradeRepository;
 use App\Services\BinanceService;
 use App\Services\StrategyService;
 use App\Services\IndicatorService;
+use App\Services\SimulationService;
 
 class DashboardService
 {
-    private $repo, $binance, $indicator, $strategy;   
+    private $repo, $binance, $indicator, $strategy, $simulation;   
 
     // create constructor to initialize the repository
     public function __construct()
@@ -18,6 +19,7 @@ class DashboardService
         $this->binance = new BinanceService();
         $this->indicator = new IndicatorService();
         $this->strategy = new StrategyService();
+        $this->simulation = new SimulationService();
     }
     
 public function dashboard()
@@ -45,10 +47,11 @@ public function dashboard()
         
         // get signal
         $signal = $this->strategy->smaCrossover($closes);
-
+    
         // get balance
-        $pnl_total = $this->repo->getTotalPnl()[0]['total_closed'] ?? 0;
-        $pnl_active = $this->repo->getTotalPnl()[0]['total_open'] ?? 0;
+        $trade_active = $this->repo->getLastActiveTrade();
+        $pnl_active = $this->simulation->calculatePNL($trade_active, $this->binance->ticker($symbol)['price']);
+        $pnl_total = $this->repo->getTotalPNL() ?? 0;
         $balance = $balance + $pnl_total;
         
 
