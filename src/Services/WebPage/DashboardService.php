@@ -52,6 +52,7 @@ public function dashboard()
         $trade_active = $this->repo->getLastActiveTrade();
         $pnl_active = $this->simulation->calculatePNL($trade_active, $this->binance->ticker($symbol)['price']);
         $pnl_total = $this->repo->getTotalPNL() ?? 0;
+        $pnl_total = $pnl_total + $pnl_active;
         $balance = $balance + $pnl_total;
         
 
