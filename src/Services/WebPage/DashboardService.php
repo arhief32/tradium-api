@@ -47,8 +47,8 @@ public function dashboard()
         $signal = $this->strategy->smaCrossover($closes);
 
         // get balance
-        $pnl_total = $this->repo->getTotalPnl()['total_closed'] ?? 0;
-        $pnl_active = $this->repo->getTotalPnl()['total_open'] ?? 0;
+        $pnl_total = $this->repo->getTotalPnl()[0]['total_closed'] ?? 0;
+        $pnl_active = $this->repo->getTotalPnl()[0]['total_open'] ?? 0;
         $balance = $balance + $pnl_total;
         
 
