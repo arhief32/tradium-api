@@ -48,4 +48,39 @@ class StrategyService
         return "HOLD";
     }
 
+    public function smaCrossover921($closes)
+    {
+
+        $sma9  = $this->indicator->sma($closes, 9);
+        $sma21 = $this->indicator->sma($closes, 21);
+
+        $lastIndex = count($closes) - 1;
+
+        if ($lastIndex < 1) {
+            return null;
+        }
+
+        $prevFast = $sma9[$lastIndex - 1];
+        $prevSlow = $sma21[$lastIndex - 1];
+
+        $currFast = $sma9[$lastIndex];
+        $currSlow = $sma21[$lastIndex];
+
+        // skip kalau masih null
+        if (!$prevFast || !$prevSlow || !$currFast || !$currSlow) {
+            return null;
+        }
+
+        // 🔥 Golden Cross → BUY
+        if ($prevFast <= $prevSlow && $currFast > $currSlow) {
+            return "BUY";
+        }
+
+        // 🔥 Death Cross → SELL
+        if ($prevFast >= $prevSlow && $currFast < $currSlow) {
+            return "SELL";
+        }
+
+        return "HOLD";
+    }
 }
